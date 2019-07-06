@@ -13,7 +13,7 @@
 !define HELPURL "http://github.com/The-Noah/bzflag-launcher" # "Support Information" link
 !define ABOUTURL "http://github.com/The-Noah/" # "Publisher" link
 # This is the size (in kB) of all the files copied into the install location
-!define INSTALLSIZE 9
+!define INSTALLSIZE 109
 
 RequestExecutionLevel user
 
@@ -26,12 +26,12 @@ InstallDir "$LOCALAPPDATA\Programs\${APPNAME}"
 #LicenseData "LICENSE"
 # This will be in the installer/uninstaller's title bar
 Name "${APPNAME}"
-#Icon "icon.ico"
 OutFile "${APPID}.${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONREVISION}.exe"
 
 !include LogicLib.nsh
 
 !define MUI_ABORTWARNING
+!define MUI_ICON "src\icon.ico"
 
 !insertmacro MUI_PAGE_LICENSE "LICENSE"
 !insertmacro MUI_PAGE_INSTFILES
