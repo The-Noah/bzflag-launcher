@@ -73,10 +73,10 @@ Section "install"
 	WriteRegDWORD HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}" "EstimatedSize" ${INSTALLSIZE}
   
   # URI scheme handler
-  WriteRegStr HKCR "${APPID}" "(Default)" "URL:${APPNAME} Protocol"
-  WriteRegStr HKCR "${APPID}" "URL PROTOCOL" ""
-  WriteRegStr HKCR "${APPID}\DefaultIcon" "(Default)" "${APPID}.exe,1"
-  WriteRegStr HKCR "${APPID}\shell\open\command" "(Default)" "$\"$INSTDIR\${APPID}.exe$\" $\"%1$\""
+  WriteRegStr HKCU "Software\Classes\${APPID}" "" "URL:${APPNAME} Protocol"
+  WriteRegStr HKCU "Software\Classes\${APPID}" "URL PROTOCOL" ""
+  WriteRegStr HKCU "Software\Classes\${APPID}\DefaultIcon" "" "$INSTDIR\${APPID}.exe"
+  WriteRegStr HKCU "Software\Classes\${APPID}\shell\open\command" "" "$\"$INSTDIR\${APPID}.exe$\" $\"%1$\""
   
   DetailPrint "Created URI scheme handler"
 SectionEnd
@@ -100,5 +100,5 @@ Section "uninstall"
   
 	# Remove uninstaller information from the registry
 	DeleteRegKey HKCU "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APPNAME}"
-  DeleteRegKey HKCR "${APPID}"
+  DeleteRegKey HKCU "Software\Classes\${APPID}"
 SectionEnd
