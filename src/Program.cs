@@ -18,6 +18,9 @@ namespace thenoah.bzflag.launcher{
 
       // handle uri scheme
       if(args.Length > 0 && args[0].StartsWith("bzflag-launcher:")){
+        // convert url encoded spaces to normal spaces
+        args[0] = args[0].Replace("%20", " ");
+
         string[] uriArgs = args[0].Replace("bzflag-launcher:", "").Split(' ');
 
         // team
