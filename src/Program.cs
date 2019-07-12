@@ -18,7 +18,15 @@ namespace thenoah.bzflag.launcher{
 
       // handle uri scheme
       if(args.Length > 0 && args[0].StartsWith("bzflag-launcher:")){
-        bzflagArgs += args[0].Replace("bzflag-launcher:", "");
+        string[] uriArgs = args[0].Replace("bzflag-launcher:", "").Split(' ');
+
+        // team
+        if(uriArgs.Length > 1){
+          bzflagArgs += $"-team {uriArgs[1]} ";
+        }
+
+        // server address
+        bzflagArgs += uriArgs[0];
       }
 
       // start bzflag
