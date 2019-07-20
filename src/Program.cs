@@ -1,18 +1,50 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 
 namespace thenoah.bzflag.launcher{
   public class Program{
-    public static void Main(string[] args){
-      string[] bzflagPaths = Directory.GetDirectories(@"C:\Program Files (x86)", "BZFlag *");
+    private static Dictionary<string, string> config = new Dictionary<string, string>();
 
-      if(bzflagPaths.Length == 0){
-        // bzflag is not installed
+    private static string bzflagPath;
+
+    public static void Main(string[] args){
+      // check to make sure the config file exists
+      if(!File.Exists("config.txt")){
         return;
       }
 
-      // get path to latest version of bzflag
-      string bzflagPath = bzflagPaths[bzflagPaths.Length - 1] + @"\bzflag.exe";
+      // ready the config
+      string[] lines = File.ReadAllLines("config.txt");
+
+      // parse it
+      foreach(string line in lines){
+        string[] data = line.Split('=');
+
+        // not a valid line or already set
+        if(data.Length != 2 || config.ContainsKey(data[0])){
+          continue;
+        }
+
+        config.Add(data[0], data[1]);
+      }
+
+      if(config.ContainsKey("path")){
+        // load path from config
+        config.TryGetValue("path", out bzflagPath);
+
+        if(!File.Exists(bzflagPath) && File.Exists(Path.Combine(bzflagPath, "bzflag.exe"))){
+          bzflagPath = Path.Combine(bzflagPath, "bzflag.exe");
+        }
+      }else{
+        FindBZFlagPath();
+      }
+
+      if(!File.Exists(bzflagPath)){
+        // we can't find bzflag, quit
+        throw new Exception("unable to find BZFlag");
+      }
 
       string bzflagArgs = "";
 
@@ -34,6 +66,18 @@ namespace thenoah.bzflag.launcher{
 
       // start bzflag
       Process.Start(bzflagPath, bzflagArgs);
+    }
+
+    private static void FindBZFlagPath(){
+      string[] bzflagPaths = Directory.GetDirectories(@"C:\Program Files (x86)", "BZFlag *");
+
+      if(bzflagPaths.Length == 0){
+        // bzflag is not in the defualt location
+        return;
+      }
+
+      // get path to latest version of bzflag
+      bzflagPath = bzflagPaths[bzflagPaths.Length - 1] + @"\bzflag.exe";
     }
   }
 }
