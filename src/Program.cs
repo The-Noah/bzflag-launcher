@@ -10,10 +10,13 @@ namespace thenoah.bzflag.launcher{
     private static string bzflagPath;
 
     public static void Main(string[] args){
+      string dataPath = Path.Combine(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "Programs"), "BZFlag Launcher");
+      Directory.CreateDirectory(dataPath);
+
       // check to make sure the config file exists and parse it if it does
-      if(File.Exists("config.txt")){
+      if(File.Exists(Path.Combine(dataPath, "config.txt"))){
         // ready the config
-        string[] lines = File.ReadAllLines("config.txt");
+        string[] lines = File.ReadAllLines(Path.Combine(dataPath, "config.txt"));
 
         // parse it
         foreach(string line in lines){
