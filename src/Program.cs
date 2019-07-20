@@ -10,24 +10,22 @@ namespace thenoah.bzflag.launcher{
     private static string bzflagPath;
 
     public static void Main(string[] args){
-      // check to make sure the config file exists
-      if(!File.Exists("config.txt")){
-        return;
-      }
+      // check to make sure the config file exists and parse it if it does
+      if(File.Exists("config.txt")){
+        // ready the config
+        string[] lines = File.ReadAllLines("config.txt");
 
-      // ready the config
-      string[] lines = File.ReadAllLines("config.txt");
+        // parse it
+        foreach(string line in lines){
+          string[] data = line.Split('=');
 
-      // parse it
-      foreach(string line in lines){
-        string[] data = line.Split('=');
+          // not a valid line or already set
+          if(data.Length != 2 || config.ContainsKey(data[0])){
+            continue;
+          }
 
-        // not a valid line or already set
-        if(data.Length != 2 || config.ContainsKey(data[0])){
-          continue;
+          config.Add(data[0], data[1]);
         }
-
-        config.Add(data[0], data[1]);
       }
 
       if(config.ContainsKey("path")){
