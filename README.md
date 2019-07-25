@@ -12,3 +12,7 @@ In the folder that the executable is installed in, create a file called `config.
 
 - `path`: path to find the BZFlag executable in
 
+Example Config:
+```
+path=C:\bzflag
+```
