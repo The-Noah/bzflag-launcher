@@ -13,7 +13,7 @@
 !define HELPURL "http://github.com/The-Noah/bzflag-launcher" # "Support Information" link
 !define ABOUTURL "http://github.com/The-Noah/" # "Publisher" link
 # This is the size (in kB) of all the files copied into the install location
-!define INSTALLSIZE 109
+!define INSTALLSIZE 507
 
 RequestExecutionLevel user
 
@@ -26,12 +26,12 @@ InstallDir "$LOCALAPPDATA\Programs\${APPNAME}"
 #LicenseData "LICENSE"
 # This will be in the installer/uninstaller's title bar
 Name "${APPNAME}"
-OutFile "${APPID}.${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONREVISION}.exe"
+OutFile "${APPID}.${VERSIONMAJOR}.${VERSIONMINOR}.${VERSIONREVISION}-setup.exe"
 
 !include LogicLib.nsh
 
 !define MUI_ABORTWARNING
-!define MUI_ICON "src\icon.ico"
+!define MUI_ICON "icon.ico"
 
 !insertmacro MUI_PAGE_LICENSE "LICENSE"
 !insertmacro MUI_PAGE_INSTFILES
@@ -43,7 +43,9 @@ Section "install"
 	SetOutPath $INSTDIR
   
 	# Files added here should be removed by the uninstaller (see section "uninstall")
-	File "bin\Release\${APPID}.exe"
+	File "bin\${APPID}.exe"
+	File "bin\${APPID}.dll"
+	File "bin\${APPID}.runtimeconfig.json"
   File "LICENSE"
   File "README.md"
 	# Add any other files for the install directory (license files, app data, etc) here

@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
@@ -9,7 +8,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Simple launcher for BZFlag which can handle a custom URI scheme on Windows")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("thenoah.bzflag.launcher.Properties")]
 [assembly: AssemblyCopyright("Copyright (c) 2019 The Noah")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
